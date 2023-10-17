@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import BooksList from "../pages/book/BooksList";
+import { Outlet } from "react-router-dom";
 
 const MainView = () => {
   return (
@@ -11,7 +11,7 @@ const MainView = () => {
         width: "100%",
       }}
     >
-      <BooksList />
+      <Outlet />
     </Box>
   );
 };

@@ -1,8 +1,9 @@
-import { Link, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import CircleBackgroundIcon from "../../components/CircleBackgroundIcon";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
+import { Link } from "react-router-dom";
 
 export default function BookItem({ book }) {
   return (
@@ -25,14 +26,18 @@ export default function BookItem({ book }) {
           spacing={4}
           className="middle"
         >
-          <CircleBackgroundIcon icon={VisibilityIcon} color="white" />
-          <CircleBackgroundIcon icon={EditIcon} color="white" />
+          <Link to={`/books/${book.id}`}>
+            <CircleBackgroundIcon icon={VisibilityIcon} color="white" />
+          </Link>
+          <Link to={`/books/${book.id}/edit`}>
+            <CircleBackgroundIcon icon={EditIcon} color="white" />
+          </Link>
           <CircleBackgroundIcon icon={DeleteSharpIcon} color="white" />
         </Stack>
       </div>
 
       <Typography sx={{ fontWeight: "bold" }}>
-        <Link color="black" href="#" underline="none">
+        <Link to={"/books/" + book.id}>
           {book.title} - {book.authors}
         </Link>
       </Typography>
