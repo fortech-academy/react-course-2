@@ -1,15 +1,36 @@
 import { useEffect, useState } from "react";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import BookItem from "./BookItem";
+import "../../styles/BooksList.css";
 
-const BooksList = ({ books }) => {
+const BooksList = () => {
+  const [books, setBooks] = useState([]);
+
+  //get books data on component mount
+  useEffect(() => {
+    fetch("https://fcs-03-01-library-backend-sgvb3cnbwa-uc.a.run.app/books")
+      .then((res) => res.json())
+      .then((data) => setBooks(data.books.filter((book) => book.enabled)));
+  }, []);
+
   return (
-    <div>
-      <h1>Books</h1>
-      <ul>
-        {books.map((book, index) => (
-          <li key={index}>{book.title}</li>
-        ))}
-      </ul>
-    </div>
+    <Stack
+      direction="row"
+      sx={{
+        flexWrap: "wrap",
+        gap: "3rem",
+      }}
+    >
+      {books.length === 0 ? (
+        <Box className="center-flex-container ">
+          <CircularProgress />
+        </Box>
+      ) : (
+        books.map((book) => <BookItem book={book} key={book.id} />)
+      )}
+    </Stack>
   );
 };
 

@@ -1,15 +1,13 @@
-import { Button, TextField } from "@mui/material";
 import { useInput } from "../../hooks/useInput";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const AddBook = ({ onAddBook }) => {
   const [title, handleTitleChange] = useInput();
   const [author, handleAuthorChange] = useInput();
   const [year, handleYearChange] = useInput();
   const [isbn, handleISBNChange] = useInput();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
 
   const handleAddBook = () => {
     const book = {
@@ -23,36 +21,51 @@ const AddBook = ({ onAddBook }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        alignItem: "center",
+        justifyContent: "center",
+      }}
+    >
       <h1>Add Book</h1>
       <TextField
         variant="outlined"
         label="Title"
         value={title}
         onChange={handleTitleChange}
-      ></TextField>
+      />
       <TextField
         variant="outlined"
         label="Author"
         value={author}
         onChange={handleAuthorChange}
-      ></TextField>
+      />
       <TextField
         variant="outlined"
         label="Year"
         value={year}
         onChange={handleYearChange}
-      ></TextField>
+      />
       <TextField
         variant="outlined"
         label="ISBN"
         value={isbn}
         onChange={handleISBNChange}
-      ></TextField>
-      <Button variant="contained" onClick={handleAddBook}>
+      />
+      <Button
+        variant="contained"
+        onClick={handleAddBook}
+        sx={{
+          maxWidth: "100px",
+        }}
+      >
         Add
       </Button>
-    </form>
+    </Box>
   );
 };
 
