@@ -4,33 +4,22 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import BookItem from "./BookItem";
 import "../../styles/BooksList.css";
-import axios from "axios";
+import { getBooks } from "../../service/BookService";
 
 const BooksList = () => {
   const [books, setBooks] = useState([]);
 
-  // async function a() {
-
-  // }
-
-  // const b = async () => {};
-  //get books data on component mount
-  //mounted
-
-  const getBooks = async () => {
+  const handleGetBooks = async () => {
     try {
-      const response = await axios.get(
-        "https://fcs-03-01-library-backend-sgvb3cnbwa-uc.a.run.app/books"
-      );
-      setBooks(response.data.books);
-      
+      const books = await getBooks();
+      setBooks(books);
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    getBooks();
+    handleGetBooks();
   }, []);
 
   return (
@@ -46,7 +35,9 @@ const BooksList = () => {
           <CircularProgress />
         </Box>
       ) : (
-        books.map((book) => <BookItem book={book} key={book.id} />)
+        books.map((book) => (
+          <BookItem book={book} key={book.id} onGetBooks={handleGetBooks} />
+        ))
       )}
     </Stack>
   );

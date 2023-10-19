@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useBookById } from "../../hooks/useBookById";
+import { CircularProgress } from "@mui/material";
+import BookForm from "./BookForm";
 
 const ViewBook = () => {
   const { bookId } = useParams();
-  const [book, setBook] = useState({});
+  const { book } = useBookById(bookId);
 
-  useEffect(() => {
-    const getBookById = async () => {
-      try {
-        const response = await axios.get(
-          `https://fcs-03-01-library-backend-sgvb3cnbwa-uc.a.run.app/books/${bookId}`
-        );
-        setBook(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getBookById();
-  }, [bookId]);
-
-  return <div>View book with title: {book.title} </div>;
+  return book ? (
+    <BookForm formTitle="View book" book={book} isReadonly={true} />
+  ) : (
+    <CircularProgress />
+  );
 };
 
 export default ViewBook;
