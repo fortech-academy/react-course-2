@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import BookItem from "./BookItem";
 import "../../styles/BooksList.css";
-import { getBooks } from "../../service/BookService";
+import { useEnabledBooks } from "../../hooks/useEnabledBooks";
 
 const BooksList = () => {
-  const [books, setBooks] = useState([]);
-
-  const handleGetBooks = async () => {
-    try {
-      const books = await getBooks();
-      setBooks(books);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    handleGetBooks();
-  }, []);
+  const { books, getAllBooks } = useEnabledBooks();
 
   return (
     <Stack
@@ -36,7 +22,7 @@ const BooksList = () => {
         </Box>
       ) : (
         books.map((book) => (
-          <BookItem book={book} key={book.id} onGetBooks={handleGetBooks} />
+          <BookItem book={book} key={book.id} onGetBooks={getAllBooks} />
         ))
       )}
     </Stack>

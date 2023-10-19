@@ -1,5 +1,6 @@
 import { Box, TextField, Button } from "@mui/material";
 import { useInput } from "../../hooks/useInput";
+import { useSelector } from "react-redux";
 
 const BookForm = ({ book, formTitle, onSaveBook, buttonLabel, isReadonly }) => {
   const [title, handleTitleChange] = useInput(book.title);
@@ -7,6 +8,9 @@ const BookForm = ({ book, formTitle, onSaveBook, buttonLabel, isReadonly }) => {
   const [year, handleYearChange] = useInput(book.year);
   const [isbn, handleISBNChange] = useInput(book.isbn);
 
+  const books = useSelector((state) => state.bookReducer.books);
+  console.log(books);
+  
   return (
     <Box
       component="form"

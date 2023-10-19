@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Typography,
 } from "@mui/material";
@@ -16,7 +15,7 @@ const ConfirmDeleteBookDialog = ({ book, isOpen, onClose, onDelete }) => {
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>Confirm Delete</DialogTitle>
+      <DialogTitle>Confirm Delete?</DialogTitle>
       <DialogContent>
         <Typography>{`Are you sure you want to delete this book:`}</Typography>
         <Typography sx={{ fontWeight: "bold" }}>{book.title}</Typography>

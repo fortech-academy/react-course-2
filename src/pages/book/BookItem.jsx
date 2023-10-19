@@ -7,11 +7,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import ConfirmDeleteBookDialog from "./ConfirmDeleteBookDialog";
 import { deleteBook } from "../../service/BookService";
+import { useDispatch } from "react-redux";
+import { openSnackbar } from "../../stores/snackbarSlice";
 
 export default function BookItem({ book, onGetBooks }) {
   const [isOpen, setIsOpen] = useState(false);
   const [src, setSrc] = useState(`../../images/${book.id}.jpg`);
 
+  const dispatch = useDispatch();
   const handleImgError = () => {
     setSrc("../../images/no-image.jpg");
   };
@@ -29,6 +32,7 @@ export default function BookItem({ book, onGetBooks }) {
 
     try {
       await deleteBook(bookId);
+      dispatch(openSnackbar({ message: "Book deleted successfully" }));
       onGetBooks();
     } catch (err) {
       console.error(err);
@@ -69,12 +73,6 @@ export default function BookItem({ book, onGetBooks }) {
             color="white"
             onClick={handleOpenDialog}
           />
-          <ConfirmDeleteBookDialog
-            book={book}
-            isOpen={isOpen}
-            onDelete={handleDeleteBook}
-            onClose={handleCloseDialog}
-          />
         </Stack>
       </div>
 
@@ -83,6 +81,13 @@ export default function BookItem({ book, onGetBooks }) {
           {book.title} - {book.authors}
         </Link>
       </Typography>
+
+      <ConfirmDeleteBookDialog
+        book={book}
+        isOpen={isOpen}
+        onDelete={handleDeleteBook}
+        onClose={handleCloseDialog}
+      />
     </Stack>
   );
 }
