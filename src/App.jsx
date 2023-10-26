@@ -1,6 +1,25 @@
+import axios from "axios";
 import Layout from "./layouts/Layout";
-
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    var username = "user";
+    var password = "password";
+    var credentials = btoa(username + ":" + password);
+    // var basicAuth = "Basic " + credentials;
+
+    axios.post(
+      "https://team1-backend-sgvb3cnbwa-uc.a.run.app/login",
+      {},
+      {
+        auth: {
+          username: username,
+          password: credentials,
+        },
+      }
+    );
+  }, []);
+
   // async function a() {}
 
   // const b = async () => {};

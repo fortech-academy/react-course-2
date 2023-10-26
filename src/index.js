@@ -9,6 +9,7 @@ import EditBook from "./pages/book/EditBook";
 import AdminPage from "./pages/admin/AdminPage";
 import { Provider } from "react-redux";
 import store from "./stores/store";
+import CartList from "./pages/cart/CartList";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "/books/:bookId/edit", element: <EditBook /> },
       { path: "/admin", element: <AdminPage /> },
       { path: "/account", element: <div>Account</div> },
+      { path: "/cart", element: <CartList /> },
     ],
   },
 ]);

@@ -16,6 +16,8 @@ const Layout = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
+      <AppSnackbar />
+
       <AppHeader width={drawerWidth} onDrawerToggle={handleDrawerToggle} />
       <NavigationBar
         width={drawerWidth}
@@ -24,7 +26,6 @@ const Layout = () => {
       />
 
       <MainView />
-      <AppSnackbar />
     </Box>
   );
 };

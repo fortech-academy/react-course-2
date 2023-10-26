@@ -5,6 +5,8 @@ import { closeSnackbar } from "../stores/snackbarSlice";
 const AppSnackbar = () => {
   const isOpen = useSelector((state) => state.snackbarReducer.isOpen);
   const message = useSelector((state) => state.snackbarReducer.message);
+  const severity = useSelector((state) => state.snackbarReducer.severity);
+
   const dispatch = useDispatch();
 
   const handleCloseSnackbar = () => {
@@ -19,7 +21,7 @@ const AppSnackbar = () => {
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <Alert
-        // severity={severity} // error, warning, info, success
+        severity={severity} // error, warning, info, success
         onClose={handleCloseSnackbar}
         sx={{ width: "100%" }}
       >

@@ -9,6 +9,8 @@ import ConfirmDeleteBookDialog from "./ConfirmDeleteBookDialog";
 import { deleteBook } from "../../service/BookService";
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../../stores/snackbarSlice";
+import { AddShoppingCart } from "@mui/icons-material";
+import { addItemToCart } from "../../stores/cartSlice";
 
 export default function BookItem({ book, onGetBooks }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,13 +34,20 @@ export default function BookItem({ book, onGetBooks }) {
 
     try {
       await deleteBook(bookId);
-      dispatch(openSnackbar({ message: "Book deleted successfully" }));
+      dispatch(openSnackbar({ text: "Book deleted successfully" }));
       onGetBooks();
     } catch (err) {
       console.error(err);
+      dispatch(
+        openSnackbar({ text: "Error deleting book", severity: "error" })
+      );
     } finally {
       handleCloseDialog();
     }
+  };
+
+  const handleAddItemToCart = () => {
+    dispatch(addItemToCart({ book: book, quantity: 1 }));
   };
 
   return (
@@ -59,7 +68,7 @@ export default function BookItem({ book, onGetBooks }) {
         <Stack
           direction="row"
           alignItems="center"
-          spacing={4}
+          spacing={2}
           className="middle"
         >
           <Link to={`/books/${book.id}`}>
@@ -72,6 +81,11 @@ export default function BookItem({ book, onGetBooks }) {
             icon={DeleteSharpIcon}
             color="white"
             onClick={handleOpenDialog}
+          />
+          <CircleBackgroundIcon
+            icon={AddShoppingCart}
+            color="white"
+            onClick={handleAddItemToCart}
           />
         </Stack>
       </div>

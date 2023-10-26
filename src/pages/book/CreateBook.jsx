@@ -25,7 +25,7 @@ const CreateBook = () => {
 
     try {
       await postBook(book);
-      dispatch(openSnackbar({ message: "Book added successfully" }));
+      dispatch(openSnackbar({ text: "Book added successfully" }));
       navigate("/books");
     } catch (error) {
       console.error(error);
